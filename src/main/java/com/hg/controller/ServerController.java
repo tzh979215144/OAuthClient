@@ -72,14 +72,14 @@ public class ServerController{
 	@RequestMapping("/callbackCode")
 	public Object toLogin(HttpServletRequest request) throws OAuthProblemException{
 		System.out.println("-----------客户端/callbackCode--------------------------------------------------------------------------------");
-		clientId = "clientId";
-		clientSecret = "clientSecret";
+		clientId = "admin";
+		clientSecret = "123456";
 		accessTokenUrl="http://localhost:8080/oauthserver/responseAccessToken";
 	    userInfoUrl = "userInfoUrl";
 	    redirectUrl = "http://localhost:8080/oauthclient01/server/accessToken";
 	    HttpServletRequest httpRequest = (HttpServletRequest) request;
 	    code = httpRequest.getParameter("code"); 
-	    System.out.println(code);
+	    System.out.println("CODE码："+code);
 	    OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
 	    try {
 			OAuthClientRequest accessTokenRequest = OAuthClientRequest
@@ -110,7 +110,7 @@ public class ServerController{
 	public ModelAndView accessToken(String accessToken) {
 		System.out.println("---------客户端/accessToken----------------------------------------------------------------------------------");
 		userInfoUrl = "http://localhost:8080/oauthserver/userInfo";
-		System.out.println("accessToken");
+		System.out.println("accessToken:"+accessToken);
 		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
 		
 		try {
@@ -118,10 +118,10 @@ public class ServerController{
 	        OAuthClientRequest userInfoRequest = new OAuthBearerClientRequest(userInfoUrl)
 	        .setAccessToken(accessToken).buildQueryMessage();
 	        OAuthResourceResponse resourceResponse = oAuthClient.resource(userInfoRequest, OAuth.HttpMethod.GET, OAuthResourceResponse.class);
-	        String username = resourceResponse.getBody();
-	        System.out.println(username);
+	        String mess = resourceResponse.getBody();
+	        System.out.println(mess);
 	        ModelAndView modelAndView = new ModelAndView("usernamePage");
-	        modelAndView.addObject("username", username);
+	        modelAndView.addObject("mess", mess);
 	        System.out.println("---------客户端/accessToken----------------------------------------------------------------------------------");
 	        return modelAndView;
 		} catch (OAuthSystemException e) {

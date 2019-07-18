@@ -35,7 +35,7 @@ response.sendRedirect(path1 + "/login/toLogin.do");
 
 <body>
 
-usernamePage:${username}
+最终结果:${mess}
 </script>
    
 </body>
