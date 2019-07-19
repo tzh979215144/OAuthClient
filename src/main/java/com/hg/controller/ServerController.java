@@ -61,6 +61,7 @@ public class ServerController{
 	    userInfoUrl = "userInfoUrl";
 	    redirectUrl = "http://10.50.130.239:8080/oauthclient01/server/callbackCode";
 	    response_type = "code";
+
 	    
 		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
 		String requestUrl = null;
