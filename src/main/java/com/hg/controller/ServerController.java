@@ -31,23 +31,35 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ServerController{
 	
-	String clientId = null;
-	String clientSecret = null;
-    String accessTokenUrl = null;
-    String userInfoUrl = null;
-    String redirectUrl = null;
-    String response_type = null;
+	String clientId = "admin";
+	String clientSecret = "1123456";
+    String accessTokenUrl = "responseCode";
+    String userInfoUrl = "userInfoUrl";
+    String redirectUrl = "http://10.50.130.239:8080/oauthclient01/server/callbackCode";
+    String response_type = "code";
     String code= null;
     
 	
+  //测试
+  	@RequestMapping("/test")
+  	public ModelAndView test(){
+		
+		ModelAndView mv = new ModelAndView("test");
+		
+		return mv;
+	}
+    
 	//提交申请code的请求
 	@RequestMapping("/requestServerCode")
 	public String requestServerFirst(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attr) throws OAuthProblemException{
-		clientId = "admin";
-		clientSecret = "clientSecret";
+//		clientId = "admin";
+//		clientSecret = "123456";
+		clientId = request.getParameter("id");
+		System.out.println("****"+clientId);
+		clientSecret = request.getParameter("password");
 	    accessTokenUrl = "responseCode";
 	    userInfoUrl = "userInfoUrl";
-	    redirectUrl = "http://localhost:8080/oauthclient01/server/callbackCode";
+	    redirectUrl = "http://10.50.130.239:8080/oauthclient01/server/callbackCode";
 	    response_type = "code";
 	    
 		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
@@ -65,18 +77,19 @@ public class ServerController{
 		} catch (OAuthSystemException e) {
 			e.printStackTrace();
 		}
-		return "redirect:http://localhost:8080/oauthserver/"+requestUrl ;
+		return "redirect:http://10.50.130.239:8080/oauthserver/"+requestUrl ;
 	}
 	
 	//接受客户端返回的code，提交申请access token的请求
 	@RequestMapping("/callbackCode")
 	public Object toLogin(HttpServletRequest request) throws OAuthProblemException{
 		System.out.println("-----------客户端/callbackCode--------------------------------------------------------------------------------");
-		clientId = "admin";
-		clientSecret = "123456";
-		accessTokenUrl="http://localhost:8080/oauthserver/responseAccessToken";
+//		clientId = "admin";
+//		clientSecret = "1234567";
+		System.out.println(clientId);
+		accessTokenUrl="http://10.50.130.239:8080/oauthserver/responseAccessToken";
 	    userInfoUrl = "userInfoUrl";
-	    redirectUrl = "http://localhost:8080/oauthclient01/server/accessToken";
+	    redirectUrl = "http://10.50.130.239:8080/oauthclient01/server/accessToken";
 	    HttpServletRequest httpRequest = (HttpServletRequest) request;
 	    code = httpRequest.getParameter("code"); 
 	    System.out.println("CODE码："+code);
@@ -98,8 +111,9 @@ public class ServerController{
             Long expiresIn = oAuthResponse.getExpiresIn();
             System.out.println("客户端/callbackCode方法的token：：："+accessToken);
             System.out.println("-----------客户端/callbackCode--------------------------------------------------------------------------------");
-            return "redirect:http://localhost:8080/oauthclient01/server/accessToken?accessToken="+accessToken;
+            return "redirect:http://10.50.130.239:8080/oauthclient01/server/accessToken?accessToken="+accessToken;
 		} catch (OAuthSystemException e) {
+			System.out.println("这里的异常1111111");
 			e.printStackTrace();
 		}
 	    return null;
@@ -109,7 +123,7 @@ public class ServerController{
 	@RequestMapping("/accessToken")
 	public ModelAndView accessToken(String accessToken) {
 		System.out.println("---------客户端/accessToken----------------------------------------------------------------------------------");
-		userInfoUrl = "http://localhost:8080/oauthserver/userInfo";
+		userInfoUrl = "http://10.50.130.239:8080/oauthserver/userInfo";
 		System.out.println("accessToken:"+accessToken);
 		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
 		
@@ -125,8 +139,10 @@ public class ServerController{
 	        System.out.println("---------客户端/accessToken----------------------------------------------------------------------------------");
 	        return modelAndView;
 		} catch (OAuthSystemException e) {
+			System.out.println("这里的异常2222222");
 			e.printStackTrace();
 		} catch (OAuthProblemException e) {
+			System.out.println("这里的异常3333333");
 			e.printStackTrace();
 		}
 		System.out.println("---------客户端/accessToken----------------------------------------------------------------------------------");

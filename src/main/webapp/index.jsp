@@ -56,7 +56,7 @@ function gotoserver(){
 function gotoserver2(){
 	alert("正在申请ID，等待人工审核");
 	var url = "${pageContext.request.contextPath}";
-	window.location.href = "http://localhost:8080/oauthserver/user/register";
+	window.location.href = "http://10.50.130.239:8080/oauthserver/user/register";
 }
 </script>
 
