@@ -31,24 +31,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ServerController{
 	
-	String clientId = null;
-	String clientSecret = null;
-    String accessTokenUrl = null;
-    String userInfoUrl = null;
-    String redirectUrl = null;
-    String response_type = null;
+	String clientId = "test";
+	String clientSecret = "123456";
+    String accessTokenUrl = "responseCode";
+    String userInfoUrl = "userInfoUrl";
+    String redirectUrl = "http://localhost:8080/oauthclient01/server/callbackCode";
+    String response_type = "code";
     String code= null;
     
 	
 	//提交申请code的请求
 	@RequestMapping("/requestServerCode")
 	public String requestServerFirst(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attr) throws OAuthProblemException{
-		clientId = "admin";
-		clientSecret = "clientSecret";
-	    accessTokenUrl = "responseCode";
-	    userInfoUrl = "userInfoUrl";
-	    redirectUrl = "http://localhost:8080/oauthclient01/server/callbackCode";
-	    response_type = "code";
+//		clientId = "admin";
+//		clientSecret = "clientSecret";
+//	    accessTokenUrl = "responseCode";
+//	    userInfoUrl = "userInfoUrl";
+//	    redirectUrl = "http://localhost:8080/oauthclient01/server/callbackCode";
+//	    response_type = "code";
 	    
 		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
 		String requestUrl = null;
@@ -72,8 +72,8 @@ public class ServerController{
 	@RequestMapping("/callbackCode")
 	public Object toLogin(HttpServletRequest request) throws OAuthProblemException{
 		System.out.println("-----------客户端/callbackCode--------------------------------------------------------------------------------");
-		clientId = "admin";
-		clientSecret = "123456";
+//		clientId = "admin";
+//		clientSecret = "123456";
 		accessTokenUrl="http://localhost:8080/oauthserver/responseAccessToken";
 	    userInfoUrl = "userInfoUrl";
 	    redirectUrl = "http://localhost:8080/oauthclient01/server/accessToken";
