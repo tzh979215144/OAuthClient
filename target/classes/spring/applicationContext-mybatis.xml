@@ -71,7 +71,7 @@ http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 
 	<!-- mapper接口扫描 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.hg.dao" />
+		<property name="basePackage" value="com.hoperun.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 
@@ -109,7 +109,7 @@ http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 	
 	<!-- 事务切面 -->
 	<aop:config>
-		<aop:pointcut id="transactionPointcut" expression="execution(* com.hg.service.impl..*.*(..))" />
+		<aop:pointcut id="transactionPointcut" expression="execution(* com.hoperun.service.impl..*.*(..))" />
 		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" order="1" />
 	</aop:config>
 
@@ -120,7 +120,7 @@ http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
 		<property name="patterns">
 			<list>
-				<value>com.hg.service.impl.*</value>
+				<value>com.hoperun.service.impl.*</value>
 			</list>
 		</property>
 	</bean>

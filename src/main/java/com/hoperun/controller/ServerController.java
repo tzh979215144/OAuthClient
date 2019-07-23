@@ -1,4 +1,4 @@
-package com.hg.controller;
+package com.hoperun.controller;
 
 import java.util.Date;
 
@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hoperun.utils.*;
+
 /**
  * 
  * @ClassName: ServerController   
@@ -31,14 +33,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ServerController{
 	
-	String clientId = "admin";
-	String clientSecret = "1123456";
+	String clientId = ReadProperties.GetValueByKey("config.properties", "clientId");
+	String clientSecret = ReadProperties.GetValueByKey("config.properties", "clientSecret");
     String accessTokenUrl = "responseCode";
     String userInfoUrl = "userInfoUrl";
     String redirectUrl = "http://10.50.130.239:8080/oauthclient01/server/callbackCode";
     String response_type = "code";
     String code= null;
-    
 	
   //测试
   	@RequestMapping("/test")
@@ -54,13 +55,19 @@ public class ServerController{
 	public String requestServerFirst(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attr) throws OAuthProblemException{
 //		clientId = "admin";
 //		clientSecret = "123456";
-		clientId = request.getParameter("id");
-		System.out.println("****"+clientId);
-		clientSecret = request.getParameter("password");
-	    accessTokenUrl = "responseCode";
-	    userInfoUrl = "userInfoUrl";
-	    redirectUrl = "http://10.50.130.239:8080/oauthclient01/server/callbackCode";
-	    response_type = "code";
+		if(request.getParameter("id")!=null) {
+			System.out.println("999999:::"+request.getParameter("id"));
+			System.out.println("*******1345*******");
+			clientId = request.getParameter("id");
+		}
+		System.out.println("here:"+clientId);
+		if(request.getParameter("password")!=null) {
+			clientSecret = request.getParameter("password");
+		}
+//	    accessTokenUrl = "responseCode";
+//	    userInfoUrl = "userInfoUrl";
+//	    redirectUrl = "http://10.50.130.239:8080/oauthclient01/server/callbackCode";
+//	    response_type = "code";
 
 	    
 		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
@@ -135,7 +142,7 @@ public class ServerController{
 	        OAuthResourceResponse resourceResponse = oAuthClient.resource(userInfoRequest, OAuth.HttpMethod.GET, OAuthResourceResponse.class);
 	        String mess = resourceResponse.getBody();
 	        System.out.println(mess);
-	        ModelAndView modelAndView = new ModelAndView("usernamePage");
+	        ModelAndView modelAndView = new ModelAndView("showResult");
 	        modelAndView.addObject("mess", mess);
 	        System.out.println("---------客户端/accessToken----------------------------------------------------------------------------------");
 	        return modelAndView;

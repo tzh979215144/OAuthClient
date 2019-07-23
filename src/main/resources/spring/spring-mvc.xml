@@ -17,16 +17,16 @@
 	</mvc:annotation-driven>
 
 	<!-- 描述conctroller -->
-	<context:component-scan base-package="com.hg.domain"/>
-	<context:component-scan base-package="com.hg.dao"/>
-	<context:component-scan base-package="com.hg.service"/>
-	<context:component-scan base-package="com.hg.controller"/>
+	<context:component-scan base-package="com.hoperun.domain"/>
+	<context:component-scan base-package="com.hoperun.dao"/>
+	<context:component-scan base-package="com.hoperun.service"/>
+	<context:component-scan base-package="com.hoperun.controller"/>
 
 <!-- 用户菜单自定义拦截器 -->
     <!-- <mvc:interceptors>
         <mvc:interceptor>
            	<mvc:mapping path="/**/*.do" />
-            <bean class="com.hg.interceptor.UserInterceptor"></bean>
+            <bean class="com.hoperun.interceptor.UserInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors> -->
     
