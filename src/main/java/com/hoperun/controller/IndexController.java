@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
+/**
+ * 进入项目默认访问路径
+ * @author tanpang
+ *
+ */
 @Controller
 public class IndexController {
 	

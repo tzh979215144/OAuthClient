@@ -20,6 +20,7 @@
 	<context:component-scan base-package="com.hoperun.domain"/>
 	<context:component-scan base-package="com.hoperun.dao"/>
 	<context:component-scan base-package="com.hoperun.service"/>
+	<context:component-scan base-package="com.hoperun.service.impl"/>
 	<context:component-scan base-package="com.hoperun.controller"/>
 
 <!-- 用户菜单自定义拦截器 -->

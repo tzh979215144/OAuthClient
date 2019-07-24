@@ -14,13 +14,10 @@ public class ReadProperties {
 	public static String GetValueByKey(String filePath, String key) {
         Properties pps = new Properties();
         filePath = "/home/tanpang/eclipse-workspace/eclipse-workspace-2.0/oauthclient01/src/main/resources/properties/"+filePath;
-        System.out.println(Thread.currentThread().getContextClassLoader().getResource("").getPath());
-//        System.out.println(new File(".").getAbsolutePath());
         try {
             InputStream in = new BufferedInputStream (new FileInputStream(filePath));  
             pps.load(in);
             String value = pps.getProperty(key);
-            System.out.println(key + " = " + value);
             return value;
             
         }catch (IOException e) {
@@ -63,8 +60,6 @@ Properties pps = new Properties();
     }
     
     public static void test(String [] args) throws IOException{
-        //String value = GetValueByKey("db.properties", "name");
-        //System.out.println(value);
     	File file = new File("dbdd.properties");
     	WriteProperties("dbdd.properties","fsf", "2fdf12");
     	GetAllProperties("dbdd.properties");
